@@ -1,30 +1,54 @@
-from pathlib import Path
+import pickle
 
-import typer
-from loguru import logger
-from tqdm import tqdm
+import click
+import pandas as pd
+from catboost import CatBoostClassifier
 
-from dste.config import MODELS_DIR, PROCESSED_DATA_DIR
+from src.model.train_ import CatboostCVOptuna
 
-app = typer.Typer()
+CAT_FEATS = [
+    "job",
+    "marital",
+    "education",
+    "default",
+    "housing",
+    "loan",
+    "contact",
+    "month",
+    "day_of_week",
+    "poutcome",
+    "campaign",
+    "previous",
+    "age_bins",
+    "duration_bins",
+]
+METRIC = "F:beta=2"
 
 
-@app.command()
-def main(
-    # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
-    features_path: Path = PROCESSED_DATA_DIR / "features.csv",
-    labels_path: Path = PROCESSED_DATA_DIR / "labels.csv",
-    model_path: Path = MODELS_DIR / "model.pkl",
-    # -----------------------------------------
+@click.command()
+@click.argument("input_filepath", type=click.Path())
+@click.argument("model_filepath", type=click.Path())
+def train(
+    input_filepath: str,
+    model_filepath: str,
 ):
-    # ---- REPLACE THIS WITH YOUR OWN CODE ----
-    logger.info("Training some model...")
-    for i in tqdm(range(10), total=10):
-        if i == 5:
-            logger.info("Something happened for iteration 5.")
-    logger.success("Modeling training complete.")
-    # -----------------------------------------
+    # Download train dataset
+    df = pd.read_pickle(input_filepath)
+
+    # Create Pool with X and y
+    opt_model = CatboostCVOptuna(cat_feats=CAT_FEATS, metric=METRIC)
+    params = opt_model.run(df.drop("y", axis=1), df["y"])
+
+    print(params)
+
+    # Fit final model
+    cb_model = CatBoostClassifier(**params)
+    cb_model.fit(df.drop("y", axis=1), df["y"])
+
+    # Save model
+    with open(model_filepath, "wb") as f:
+        pickle.dump(cb_model, f)
 
 
 if __name__ == "__main__":
-    app()
+    train()

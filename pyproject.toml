@@ -19,7 +19,12 @@ optuna = "^4.2.1"
 dvc = "^3.59.0"
 click = "^8.1.8"
 gensim = "^4.3.3"
+ruff = "^0.9.6"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+lint.select = ["E", "F", "I"]
