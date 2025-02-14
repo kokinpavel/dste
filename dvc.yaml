@@ -1,9 +1,9 @@
 stages:
 
   preprocess:
-    cmd: python -m src.data.preprocess data/sql_query/cohort_data_train.sql data/raw/cohort_data.pkl.bz2 S3
+    cmd: python -m src.data.preprocess data/raw/train_file.xlsx data/processed/preprocess_model.pkl data/processed/train.pkl
     deps:
-      - src/data/download_raw_data_train.py
-      - data/sql_query/cohort_data_train.sql
+      - src/data/preprocess.py
+      - data/raw/train_file.xlsx
     outs:
-      - data/raw/cohort_data.pkl.bz2
+      - data/processed/train.pkl

@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python -m src.data.preprocess data/raw/train_file.xlsx data/processed/preprocess_model.pkl
+      data/processed/train.pkl
+    deps:
+    - path: data/raw/train_file.xlsx
+      hash: md5
+      md5: b515101a08ff8731e61316c01ba19090
+      size: 2213191
+    - path: src/data/preprocess.py
+      hash: md5
+      md5: b5813b0563cd79e199f6fece87e2f2fa
+      size: 824
+    outs:
+    - path: data/processed/train.pkl
+      hash: md5
+      md5: 8adc055f0c5c82b70b4eb3389852fff9
+      size: 3784346
