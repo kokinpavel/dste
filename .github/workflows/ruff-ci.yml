@@ -23,9 +23,9 @@ jobs:
         run: pip install ruff
 
       - name: Run Ruff check and correct 
-        run: 
+        run: |
           ruff check --fix src/. --output-format=github
           ruff format src/.
           git add .
-          git commit -- -m "Auto-fix with Ruff" || echo "No changes to commit"
+          git commit -m "Auto-fix with Ruff" || echo "No changes to commit"
           git push
