@@ -26,7 +26,7 @@ def preprocess(
 
     # Run pipeline
     preprocess_model = PreprocessModel()
-    df = preprocess_model.fit_transform(df)
+    df = preprocess_model.fit_transform(df, with_target=True)
 
     # Save model
     with open(model_filepath, "wb") as f:

@@ -36,9 +36,9 @@ class PreprocessModel:
         self.fill_campaign(df)
         return df
 
-    def fit_transform(self, df: pd.DataFrame):
+    def fit_transform(self, df: pd.DataFrame, with_target: bool = False):
         self.fit(df)
-        return self.transform(df)
+        return self.transform(df, with_target)
 
     def target_encoding(self, df: pd.DataFrame):
         """Encode the target variable to binary"""

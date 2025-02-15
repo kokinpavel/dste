@@ -1,20 +1,29 @@
 stages:
 
-  preprocess:
-    cmd: python -m src.data.preprocess data/raw/train_file.xlsx models/preprocess_model.pkl data/processed/train_df.pkl
-    deps:
-      - src/data/preprocess.py
-      - src/data/preprocess_.py
-      - data/raw/train_file.xlsx
-    outs:
-      - models/preprocess_model.pkl
-      - data/processed/train_df.pkl
+  # preprocess:
+  #   cmd: python -m src.data.preprocess data/raw/train_file.xlsx models/preprocess_model.pkl data/processed/train_df.pkl
+  #   deps:
+  #     - src/data/preprocess.py
+  #     - src/data/preprocess_.py
+  #     - data/raw/train_file.xlsx
+  #   outs:
+  #     - models/preprocess_model.pkl
+  #     - data/processed/train_df.pkl
 
-  train:
-    cmd: python -m src.model.train data/processed/train_df.pkl models/model.pkl
+  # train:
+  #   cmd: python -m src.model.train data/processed/train_df.pkl models/model.pkl
+  #   deps:
+  #     - src/model/train.py
+  #     - src/model/train_.py
+  #     - data/processed/train_df.pkl
+  #   outs:
+  #     - models/model.pkl
+
+  predict:
+    cmd: python -m src.model.predict data/raw/test_file.xlsx models/preprocess_model.pkl models/model.pkl data/processed/predictions.csv
     deps:
-      - src/model/train.py
-      - src/model/train_.py
-      - data/processed/train_df.pkl
-    outs:
+      - src/model/predict.py
+      - models/preprocess_model.pkl
       - models/model.pkl
+    outs:
+      - data/processed/predictions.csv

@@ -10,17 +10,17 @@ stages:
       size: 2213191
     - path: src/data/preprocess.py
       hash: md5
-      md5: 7beebaf8ba754ebfe4fa3e0dc7212f1c
-      size: 909
+      md5: c99c5931eee5081f7451527cd594aea7
+      size: 927
     - path: src/data/preprocess_.py
       hash: md5
-      md5: cec54bdf90dca38221750fa97e40a412
-      size: 2819
+      md5: 8dd7ff9b1e61be9d645b7885b9180387
+      size: 2780
     outs:
     - path: data/processed/train_df.pkl
       hash: md5
-      md5: f8e6ee7b8731e447da45412ccfa59555
-      size: 1911986
+      md5: 1da647313efdea7696e289a1d4745313
+      size: 2109420
     - path: models/preprocess_model.pkl
       hash: md5
       md5: 8c1aea4824c7bb33d2fc777cf1c7f915
@@ -30,18 +30,39 @@ stages:
     deps:
     - path: data/processed/train_df.pkl
       hash: md5
-      md5: 8adc055f0c5c82b70b4eb3389852fff9
-      size: 3784346
+      md5: 1da647313efdea7696e289a1d4745313
+      size: 2109420
     - path: src/model/train.py
       hash: md5
-      md5: 90c157ec3b21c5faa936f591849d0492
-      size: 1074
+      md5: 22faef70bbf3d3f4d5b86456bd570ab0
+      size: 1055
     - path: src/model/train_.py
       hash: md5
-      md5: 504964582c0c4911c529716b5bcaec80
-      size: 3729
+      md5: f5bd05822516d88f5cd7b523bfc08474
+      size: 3728
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: eeaa9999763ce25f8933d38e1f9d107f
-      size: 1039271
+      md5: 02a32133e87625e8bc52d6ac3b7b9c91
+      size: 690983
+  predict:
+    cmd: python -m src.model.predict data/raw/test_file.xlsx models/preprocess_model.pkl
+      models/model.pkl data/processed/predictions.csv
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: 02a32133e87625e8bc52d6ac3b7b9c91
+      size: 690983
+    - path: models/preprocess_model.pkl
+      hash: md5
+      md5: 8c1aea4824c7bb33d2fc777cf1c7f915
+      size: 993
+    - path: src/model/predict.py
+      hash: md5
+      md5: ed93f2172bb5322ae9ea4c13475b462f
+      size: 933
+    outs:
+    - path: data/processed/predictions.csv
+      hash: md5
+      md5: be5db4db22b72752bf7f54902768a499
+      size: 811
