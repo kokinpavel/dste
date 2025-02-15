@@ -35,4 +35,4 @@ jobs:
           git config --global user.name "pavel.kokin"
           git add .
           git commit -m "Auto-fix with Ruff" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/kokinpavel/dste.git
