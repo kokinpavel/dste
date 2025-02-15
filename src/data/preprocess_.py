@@ -22,7 +22,7 @@ class PreprocessModel:
         self.is_fitted = True
 
     def transform(self, df: pd.DataFrame, with_target: bool = False):
-        """Transform the given DataFrame by applying the fitted preprocessing pipeline"""
+        """Transform the given DataFrame"""
         # Small check
         assert self.is_fitted, "The model is not fitted yet!"
 
@@ -51,7 +51,7 @@ class PreprocessModel:
         )
 
     def get_campaign_to_save(self, df: pd.DataFrame):
-        """Determine campaigns with less than min_count to be replaced by fill_value later"""
+        """Determine campaigns with less than min_count to be replaced"""
         self.campaign_to_save = (
             df["campaign"]
             .value_counts()[df["campaign"].value_counts() > self.min_count]
@@ -67,13 +67,13 @@ class PreprocessModel:
     def get_bins(self, df: pd.DataFrame):
         """Calculate and store the bin edges using quantile-based discretization"""
         self.bin_edges = {}
-        
+
         for col in self.cols_to_bin:
             _, edges = pd.qcut(df[col], q=self.bins, retbins=True, duplicates="drop")
             self.bin_edges[col] = edges
 
     def fill_bins(self, df: pd.DataFrame):
-        """Fill in the binned columns in the given DataFrame using the stored bin edges"""
+        """Fill in the binned columns in the given DataFrame using the stored bins"""
 
         # Small check
         assert self.cols_to_bin == list(self.bin_edges.keys()), (

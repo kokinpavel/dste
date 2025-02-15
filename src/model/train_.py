@@ -87,7 +87,7 @@ class CatboostCVOptuna:
         """
         Retrieve and update the best hyperparameters from the Optuna study.
 
-        Modifies certain hyperparameters of the best trial, 
+        Modifies certain hyperparameters of the best trial,
         returns the dictionary of best hyperparameters.
 
         Returns
