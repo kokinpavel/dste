@@ -29,8 +29,6 @@ def predict(
     df = preprocess_model.transform(df, with_target=False)
     df = pd.Series(model.predict_proba(df)[:, 1])
 
-    print(df)
-
     # Save predictions
     df.to_csv(output_filepath, index=False)
 

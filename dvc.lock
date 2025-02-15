@@ -38,21 +38,21 @@ stages:
       size: 1055
     - path: src/model/train_.py
       hash: md5
-      md5: f5bd05822516d88f5cd7b523bfc08474
-      size: 3728
+      md5: 68528b3435ae7612a44df7247e8d6f06
+      size: 3600
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 02a32133e87625e8bc52d6ac3b7b9c91
-      size: 690983
+      md5: 043930375125fd691863994133169c67
+      size: 259652
   predict:
     cmd: python -m src.model.predict data/raw/test_file.xlsx models/preprocess_model.pkl
       models/model.pkl data/processed/predictions.csv
     deps:
     - path: models/model.pkl
       hash: md5
-      md5: 02a32133e87625e8bc52d6ac3b7b9c91
-      size: 690983
+      md5: 043930375125fd691863994133169c67
+      size: 259652
     - path: models/preprocess_model.pkl
       hash: md5
       md5: 8c1aea4824c7bb33d2fc777cf1c7f915
@@ -64,5 +64,5 @@ stages:
     outs:
     - path: data/processed/predictions.csv
       hash: md5
-      md5: be5db4db22b72752bf7f54902768a499
-      size: 811
+      md5: 245bea5253079c12b414245b907f90fc
+      size: 806

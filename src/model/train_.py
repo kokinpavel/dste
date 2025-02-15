@@ -39,9 +39,6 @@ class CatboostCVOptuna:
                 "random_strength", 0.1, 10.0, log=True
             ),
             "bagging_temperature": trial.suggest_float("bagging_temperature", 0.0, 1.0),
-            "early_stopping_rounds": trial.suggest_int(
-                "early_stopping_rounds", 20, 80, step=10
-            ),
             "max_ctr_complexity": trial.suggest_int("max_ctr_complexity", 0, 6),
             "loss_function": "Logloss",
             "eval_metric": self.metric,
