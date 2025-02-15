@@ -14,11 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Git user
-        run: |
-          git config --global user.email "$GIT_USER_EMAIL"
-          git config --global user.name "$GIT_USER_NAME"
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -29,10 +24,4 @@ jobs:
 
       - name: Run Ruff check and correct 
         run: |
-          ruff check --fix src/. --output-format=github
-          ruff format src/.
-          git config --global user.email "pavel.data@gmail.com"
-          git config --global user.name "pavel.kokin"
-          git add .
-          git commit -m "Auto-fix with Ruff" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/kokinpavel/dste.git
+          ruff check src/. --output-format=github
