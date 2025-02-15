@@ -39,8 +39,6 @@ def train(
     opt_model = CatboostCVOptuna(cat_feats=CAT_FEATS, metric=METRIC)
     params = opt_model.run(df.drop("y", axis=1), df["y"])
 
-    print(params)
-
     # Fit final model
     cb_model = CatBoostClassifier(**params)
     cb_model.fit(df.drop("y", axis=1), df["y"])

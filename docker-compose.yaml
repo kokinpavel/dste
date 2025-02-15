@@ -7,5 +7,6 @@ services:
       - .:/app
     working_dir: /app
     ports:
-      - "8890:8890"
+      - "8890:8890" # for jupyter notebook
+      - "8800:8800" # for uvicorn
     command: jupyter notebook --port=8890 --no-browser --ip=0.0.0.0 --allow-root

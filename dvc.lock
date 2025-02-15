@@ -1,8 +1,8 @@
 schema: '2.0'
 stages:
   preprocess:
-    cmd: python -m src.data.preprocess data/raw/train_file.xlsx data/processed/preprocess_model.pkl
-      data/processed/train.pkl
+    cmd: python -m src.data.preprocess data/raw/train_file.xlsx models/preprocess_model.pkl
+      data/processed/train_df.pkl
     deps:
     - path: data/raw/train_file.xlsx
       hash: md5
@@ -10,26 +10,38 @@ stages:
       size: 2213191
     - path: src/data/preprocess.py
       hash: md5
-      md5: 27f7cbc935ca670cfe40fee3f1f6f6e9
-      size: 941
-    outs:
-    - path: data/processed/train.pkl
+      md5: 7beebaf8ba754ebfe4fa3e0dc7212f1c
+      size: 909
+    - path: src/data/preprocess_.py
       hash: md5
-      md5: 8adc055f0c5c82b70b4eb3389852fff9
-      size: 3784346
+      md5: cec54bdf90dca38221750fa97e40a412
+      size: 2819
+    outs:
+    - path: data/processed/train_df.pkl
+      hash: md5
+      md5: f8e6ee7b8731e447da45412ccfa59555
+      size: 1911986
+    - path: models/preprocess_model.pkl
+      hash: md5
+      md5: 8c1aea4824c7bb33d2fc777cf1c7f915
+      size: 993
   train:
-    cmd: python -m src.model.train data/processed/train.pkl data/processed/model.pkl
+    cmd: python -m src.model.train data/processed/train_df.pkl models/model.pkl
     deps:
-    - path: data/processed/train.pkl
+    - path: data/processed/train_df.pkl
       hash: md5
       md5: 8adc055f0c5c82b70b4eb3389852fff9
       size: 3784346
     - path: src/model/train.py
       hash: md5
-      md5: b2c96df6587314cd76dcc3761382135d
-      size: 1099
-    outs:
-    - path: data/processed/model.pkl
+      md5: 90c157ec3b21c5faa936f591849d0492
+      size: 1074
+    - path: src/model/train_.py
       hash: md5
-      md5: 39a8df5bffe8b809a55595cd30e23a3f
-      size: 1093399
+      md5: 504964582c0c4911c529716b5bcaec80
+      size: 3729
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: eeaa9999763ce25f8933d38e1f9d107f
+      size: 1039271

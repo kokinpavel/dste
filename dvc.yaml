@@ -1,18 +1,20 @@
 stages:
 
   preprocess:
-    cmd: python -m src.data.preprocess data/raw/train_file.xlsx data/processed/preprocess_model.pkl data/processed/train.pkl
+    cmd: python -m src.data.preprocess data/raw/train_file.xlsx models/preprocess_model.pkl data/processed/train_df.pkl
     deps:
       - src/data/preprocess.py
       - src/data/preprocess_.py
       - data/raw/train_file.xlsx
     outs:
-      - data/processed/train.pkl
+      - models/preprocess_model.pkl
+      - data/processed/train_df.pkl
 
   train:
-    cmd: python -m src.model.train data/processed/train.pkl data/processed/model.pkl
+    cmd: python -m src.model.train data/processed/train_df.pkl models/model.pkl
     deps:
       - src/model/train.py
-      - data/processed/train.pkl
+      - src/model/train_.py
+      - data/processed/train_df.pkl
     outs:
-      - data/processed/model.pkl
+      - models/model.pkl
